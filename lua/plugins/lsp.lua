@@ -32,26 +32,36 @@ return {
     lspconfig.marksman.setup({})
     lspconfig.pyright.setup({})
 
+    local disable_semantic_tokens = {
+      lua = true
+    }
+
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-      callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+      -- group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      callback = function(args)
+        local bufnr = args.buf
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        --[[ vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) ]]
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-      end,
+        local builtin = require "telescope.builtin"
+
+        vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+        vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
+        vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
+        vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+
+        vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
+        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
+        vim.keymap.set("n", "<space>wd", builtin.lsp_document_symbols, { buffer = 0 })
+
+        local filetype = vim.bo[bufnr].filetype
+        if disable_semantic_tokens[filetype] then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
+      end
     })
   end,
 }
