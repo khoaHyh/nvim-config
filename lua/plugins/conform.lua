@@ -9,14 +9,14 @@ return {
     conform.setup({
 
       formatters_by_ft = {
-        typescript = { { "prettierd", "prettier" } },
-        javascript = { { "prettierd", "prettier" } },
-        typescriptreact = { { "prettierd", "prettier" } },
-        javascriptreact = { { "prettierd", "prettier" } },
-        markdown = { { "prettierd", "prettier" } },
-        json = { { "prettierd", "prettier" } },
-        css = { { "prettierd", "prettier" } },
-        yaml = { { "prettierd", "prettier" } },
+        typescript = { "prettierd", "prettier" },
+        javascript = { "prettierd", "prettier" },
+        typescriptreact = { "prettierd", "prettier" },
+        javascriptreact = { "prettierd", "prettier" },
+        markdown = { "prettierd", "prettier" },
+        json = { "prettierd", "prettier" },
+        css = { "prettierd", "prettier" },
+        yaml = { "prettierd", "prettier" },
         go = { "gofumpt" },
         c = { "clang-format" },
         lua = { "stylua" },
