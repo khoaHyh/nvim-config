@@ -132,7 +132,11 @@ return {
           additional_args = { '--hidden' }
         },
         live_grep = {
+          theme = 'ivy',
           additional_args = { '--hidden' }
+        },
+        lsp_references = {
+          theme = 'ivy',
         }
       },
 
