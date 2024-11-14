@@ -16,7 +16,7 @@ return {
         markdown = { "prettierd", "prettier" },
         json = { "prettierd", "prettier" },
         css = { "prettierd", "prettier" },
-        yaml = { "prettierd", "prettier" },
+        yaml = { "yamlfmt", "prettierd", "prettier" },
         go = { "gofumpt" },
         c = { "clang-format" },
         lua = { "stylua" },
