@@ -16,8 +16,8 @@ return {
         markdown = { "prettierd", "prettier" },
         json = { "prettierd", "prettier" },
         css = { "prettierd", "prettier" },
-        yaml = { "yamlfmt", "prettierd", "prettier" },
-        go = { "gofumpt" },
+        yaml = { "prettierd", "yamlfmt", "prettier" },
+        go = { "gofmt" },
         c = { "clang-format" },
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
