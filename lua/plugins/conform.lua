@@ -9,6 +9,8 @@ return {
     conform.setup({
 
       formatters_by_ft = {
+        -- Conform will run multiple formatters sequentially
+        -- Use a sub-list to run only the first available formatter
         typescript = { "prettierd", "prettier" },
         javascript = { "prettierd", "prettier" },
         typescriptreact = { "prettierd", "prettier" },
@@ -20,9 +22,7 @@ return {
         go = { "gofmt" },
         c = { "clang-format" },
         lua = { "stylua" },
-        -- Conform will run multiple formatters sequentially
-        python = { "ruff" },
-        -- Use a sub-list to run only the first available formatter
+        python = { "ruff_format" },
       },
       ft_parsers = {
         javascript = "babel",

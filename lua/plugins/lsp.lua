@@ -29,7 +29,21 @@ return {
     lspconfig.eslint.setup({})
     lspconfig.lua_ls.setup({})
     lspconfig.marksman.setup({})
-    lspconfig.pyright.setup({})
+    lspconfig.pyright.setup({
+      settings = {
+        pyright = {
+          -- Using Ruff's import organizer
+          disableOrganizeImports = true,
+        },
+        python = {
+          analysis = {
+            -- Ignore all files for analysis to exclusively use Ruff for linting
+            ignore = { '*' },
+          },
+        },
+      },
+    })
+    lspconfig.ruff.setup({})
     lspconfig.yamlls.setup({})
 
     local disable_semantic_tokens = {
@@ -39,7 +53,7 @@ return {
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd("LspAttach", {
-      -- group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
       callback = function(args)
         local bufnr = args.buf
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
@@ -60,6 +74,11 @@ return {
         local filetype = vim.bo[bufnr].filetype
         if disable_semantic_tokens[filetype] then
           client.server_capabilities.semanticTokensProvider = nil
+        end
+
+        if client.name == 'ruff' then
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
         end
       end,
     })
