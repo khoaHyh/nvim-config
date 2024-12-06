@@ -26,7 +26,9 @@ return {
     lspconfig.clangd.setup({})
     lspconfig.gopls.setup({})
     lspconfig.ts_ls.setup({})
-    lspconfig.eslint.setup({})
+    lspconfig.eslint.setup({
+      root_dir = lspconfig.util.root_pattern('queries', '.git')
+    })
     lspconfig.lua_ls.setup({})
     lspconfig.marksman.setup({})
     lspconfig.pyright.setup({
