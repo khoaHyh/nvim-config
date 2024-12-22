@@ -17,7 +17,7 @@ return {
     local lspconfig = require("lspconfig")
     local mason = require("mason")
     require("mason-lspconfig").setup({
-      ensure_installed = { "clangd", "gopls", "ts_ls", "eslint", "lua_ls", "marksman", "pyright", "yamlls" },
+      ensure_installed = { "clangd", "gopls", "ts_ls", "eslint", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
       handlers = { default_setup },
     })
 
@@ -31,21 +31,32 @@ return {
     })
     lspconfig.lua_ls.setup({})
     lspconfig.marksman.setup({})
+    -- NTS: you need node running in the current context in order for pyright to work. Maybe something to fix with Mason?
     lspconfig.pyright.setup({
       settings = {
         pyright = {
-          -- Using Ruff's import organizer
+          -- Using Ruff's import organizers
           disableOrganizeImports = true,
         },
         python = {
           analysis = {
-            -- Ignore all files for analysis to exclusively use Ruff for linting
+            inlayHints = {
+              variableTypes = true,
+              functionReturnTypes = true
+            },
             ignore = { '*' },
+            typeCheckingMode = "off"
           },
         },
       },
     })
-    lspconfig.ruff.setup({})
+    lspconfig.ruff.setup({
+      init_option = {
+        settings = {
+          loglevel = 'error'
+        }
+      }
+    })
     lspconfig.yamlls.setup({})
 
     local disable_semantic_tokens = {
