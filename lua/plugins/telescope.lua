@@ -148,12 +148,6 @@ return {
           filetypes = { "png", "webp", "jpg", "jpeg" },
           find_cmd = "rg", -- find command (defaults to `fd`)
         },
-        fzf = {
-          fuzzy = true,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = "smart_case",
-        },
       },
     })
     -- This will load fzy_native and have it override the default file sorter
