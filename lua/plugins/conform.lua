@@ -23,6 +23,7 @@ return {
         c = { "clang-format" },
         lua = { "stylua" },
         python = { "ruff_format" },
+        kotlin = { "ktlint" }
       },
       ft_parsers = {
         javascript = "babel",
