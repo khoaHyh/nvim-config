@@ -17,7 +17,7 @@ return {
     local lspconfig = require("lspconfig")
     local mason = require("mason")
     require("mason-lspconfig").setup({
-      ensure_installed = { "clangd", "gopls", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
+      ensure_installed = { "apex_ls", "clangd", "gopls", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
       handlers = { default_setup },
     })
 
@@ -31,6 +31,12 @@ return {
     })
     lspconfig.lua_ls.setup({})
     lspconfig.marksman.setup({})
+    lspconfig.apex_ls.setup({
+      apex_enable_semantic_errors = false,
+      apex_enable_completion_statistics = false,
+      filetypes = { 'apex' },
+      root_dir = lspconfig.util.root_pattern('sfdx-project.json'),
+    })
     -- NTS: you need node running in the current context in order for pyright to work. Maybe something to fix with Mason?
     lspconfig.pyright.setup({
       settings = {

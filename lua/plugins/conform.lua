@@ -23,7 +23,8 @@ return {
         c = { "clang-format" },
         lua = { "stylua" },
         python = { "ruff_format" },
-        kotlin = { "ktlint" }
+        kotlin = { "ktlint" },
+        apex = { "prettierd " }
       },
       ft_parsers = {
         javascript = "babel",
