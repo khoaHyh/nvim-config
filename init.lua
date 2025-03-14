@@ -39,9 +39,4 @@ require("config.keymaps") -- map b4 loading packages so we can use <Leader>
 require("lazy-config")
 
 -- set colorscheme after plugins are loaded
--- vim.cmd([[colorscheme gruvbox-material]])
--- vim.g.gruvbox_material_background = "hard"
--- vim.g.gruvbox_material_enable_bold = "1"
-
-vim.g.everforest_background = "hard"
-vim.cmd([[colorscheme rose-pine ]])
+vim.cmd([[ colorscheme rose-pine ]])

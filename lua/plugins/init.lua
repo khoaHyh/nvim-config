@@ -3,7 +3,17 @@ return {
   -- colorschemes START --
   "sainnhe/gruvbox-material",
   "sainnhe/everforest",
-  { "rose-pine/neovim", name = "rose-pine", variant = "moon", dark_variant = "moon" },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    variant = "dawn",
+    dark_variant = "moon",
+    styles = {
+      bold = true,
+      italic = true,
+      transparency = false
+    }
+  },
   -- colorschemes END --
   "nvim-tree/nvim-web-devicons",
   "nvim-telescope/telescope-media-files.nvim",
