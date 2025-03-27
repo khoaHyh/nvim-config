@@ -24,7 +24,8 @@ return {
         lua = { "stylua" },
         python = { "ruff_format" },
         kotlin = { "ktlint" },
-        apex = { "prettierd " }
+        apex = { "prettierd " },
+        sh = { "shfmt" }
       },
       ft_parsers = {
         javascript = "babel",
