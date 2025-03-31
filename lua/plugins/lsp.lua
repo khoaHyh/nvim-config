@@ -17,7 +17,7 @@ return {
     local lspconfig = require("lspconfig")
     local mason = require("mason")
     require("mason-lspconfig").setup({
-      ensure_installed = { "apex_ls", "clangd", "gopls", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
+      ensure_installed = { "apex_ls", "clangd", "denols", "gopls", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
       handlers = { default_setup },
     })
 
@@ -25,9 +25,17 @@ return {
 
     lspconfig.clangd.setup({})
     lspconfig.gopls.setup({})
-    lspconfig.ts_ls.setup({})
+    lspconfig.ts_ls.setup({
+      -- need this to prevent denols and ts_ls both attached to the same buffer
+      root_dir = lspconfig.util.root_pattern("package.json"),
+      single_file_support = false
+    })
     lspconfig.eslint.setup({
+      -- need this to prevent denols and ts_ls both attached to the same buffer
       root_dir = lspconfig.util.root_pattern('queries', '.git')
+    })
+    lspconfig.denols.setup({
+      root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     })
     lspconfig.lua_ls.setup({})
     lspconfig.marksman.setup({})
