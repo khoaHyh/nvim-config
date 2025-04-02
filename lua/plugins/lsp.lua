@@ -37,7 +37,18 @@ return {
     lspconfig.denols.setup({
       root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     })
-    lspconfig.lua_ls.setup({})
+    lspconfig.lua_ls.setup({
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" }, -- Declare `vim` as a global variable
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime files
+          },
+        }
+      }
+    })
     lspconfig.marksman.setup({})
     lspconfig.apex_ls.setup({
       apex_enable_semantic_errors = false,

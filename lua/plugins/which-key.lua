@@ -44,10 +44,13 @@ local function yank_nvim_tree_rel_path()
   end
 end
 
+local multi_grep = require("config.telescope.multigrep")
+
 local mappings = {
   {
     "<leader>f",
     "<cmd>Telescope find_files<cr>",
+    icon = "📂",
     desc = "Find Files",
     nowait = true,
     remap = false,
@@ -55,7 +58,16 @@ local mappings = {
   {
     "<leader>F",
     "<cmd>Telescope live_grep<cr>",
+    icon = "🔤",
     desc = "Live Grep",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>M",
+    multi_grep.live_multigrep,
+    icon = "🔎",
+    desc = "Multi Grep",
     nowait = true,
     remap = false,
   },
@@ -69,18 +81,12 @@ local mappings = {
   {
     "<leader>e",
     ":NvimTreeToggle<CR>",
+    icon = "🌳",
     desc = "Toggle NvimTree",
     nowait = true,
     remap = false,
   },
-  { "<leader>p", yank_nvim_tree_rel_path,                    desc = "Yank Relative Path",             nowait = true, remap = false },
-  {
-    "<leader>e",
-    ":NvimTreeToggle<CR>",
-    desc = "Toggle NvimTree",
-    nowait = true,
-    remap = false,
-  },
+  { "<leader>p", yank_nvim_tree_rel_path, icon = "📝", desc = "Yank Relative Path", nowait = true, remap = false },
   { "<leader>t", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Diagnostics for current buffer", nowait = true, remap = false },
   {
     "<leader>g",
