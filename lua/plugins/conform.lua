@@ -25,7 +25,8 @@ return {
         python = { "ruff_format" },
         kotlin = { "ktlint" },
         apex = { "prettierd " },
-        sh = { "shfmt" }
+        sh = { "shfmt" },
+        templ = { "templ" }
       },
       ft_parsers = {
         javascript = "babel",

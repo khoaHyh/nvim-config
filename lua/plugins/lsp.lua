@@ -17,13 +17,14 @@ return {
     local lspconfig = require("lspconfig")
     local mason = require("mason")
     require("mason-lspconfig").setup({
-      ensure_installed = { "apex_ls", "clangd", "denols", "gopls", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
+      ensure_installed = { "htmx", "clangd", "denols", "gopls", "templ", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
       handlers = { default_setup },
     })
 
     mason.setup()
 
     lspconfig.clangd.setup({})
+    lspconfig.htmx.setup({})
     lspconfig.gopls.setup({})
     lspconfig.ts_ls.setup({
       -- need this to prevent denols and ts_ls both attached to the same buffer
@@ -50,12 +51,6 @@ return {
       }
     })
     lspconfig.marksman.setup({})
-    lspconfig.apex_ls.setup({
-      apex_enable_semantic_errors = false,
-      apex_enable_completion_statistics = false,
-      filetypes = { 'apex' },
-      root_dir = lspconfig.util.root_pattern('sfdx-project.json'),
-    })
     -- NTS: you need node running in the current context in order for pyright to work. Maybe something to fix with Mason?
     lspconfig.pyright.setup({
       settings = {
@@ -84,6 +79,7 @@ return {
     })
     lspconfig.yamlls.setup({})
     lspconfig.kotlin_language_server.setup({})
+    lspconfig.templ.setup({})
 
     local disable_semantic_tokens = {
       lua = true,
