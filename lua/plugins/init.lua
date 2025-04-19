@@ -6,7 +6,7 @@ return {
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    variant = "dawn",
+    variant = "auto",
     dark_variant = "moon",
     styles = {
       bold = true,
