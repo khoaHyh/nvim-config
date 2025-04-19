@@ -17,7 +17,7 @@ return {
     local lspconfig = require("lspconfig")
     local mason = require("mason")
     require("mason-lspconfig").setup({
-      ensure_installed = { "htmx", "clangd", "denols", "gopls", "templ", "ts_ls", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
+      ensure_installed = { "htmx", "clangd", "denols", "gopls", "templ", "ts_ls", "tailwindcss", "eslint", "kotlin_language_server", "lua_ls", "marksman", "pyright", "ruff", "yamlls" },
       handlers = { default_setup },
     })
 
@@ -80,6 +80,19 @@ return {
     lspconfig.yamlls.setup({})
     lspconfig.kotlin_language_server.setup({})
     lspconfig.templ.setup({})
+    lspconfig.html.setup({
+      filetypes = { "html", "templ" },
+    })
+    lspconfig.tailwindcss.setup({
+      filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+      settings = {
+        tailwindCSS = {
+          includeLanguages = {
+            templ = "html",
+          },
+        },
+      },
+    })
 
     local disable_semantic_tokens = {
       lua = true,
