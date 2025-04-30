@@ -30,6 +30,15 @@ return {
       { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
       "saadparwaiz1/cmp_luasnip",
     },
+    sources = {
+      { name = "nvim_lsp" },
+      { name = "luasnip" },
+      { name = "path" },
+      { name = "buffer" },
+      per_filetype = {
+        codecompanion = { "codecompanion" },
+      }
+    },
     config = function()
       require "config.completion"
     end
@@ -48,5 +57,37 @@ return {
     -- use opts = {} for passing setup options
     -- this is equalent to setup({}) function
   },
-  "kevinhwang91/nvim-bqf"
+  "kevinhwang91/nvim-bqf",
+  "github/copilot.vim",
+  -- {
+  --   "olimorris/codecompanion.nvim",
+  --   opts = {
+  --     display = {
+  --       chat = { show_settings = true },
+  --     },
+  --     opts = {
+  --       -- Set debug logging
+  --       log_level = "DEBUG",
+  --     },
+  --   },
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  -- },
+  {
+    {
+      "CopilotC-Nvim/CopilotChat.nvim",
+      dependencies = {
+        { "github/copilot.vim" },
+        { "nvim-lua/plenary.nvim", branch = "master" },
+      },
+      build = "make tiktoken", -- Only on MacOS or Linux
+      opts = {
+        question_header = "## @khoaHyh",
+        answer_header = "## Copilot ",
+        error_header = "## Error ",
+      },
+    },
+  }
 }

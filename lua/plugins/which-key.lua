@@ -94,7 +94,31 @@ local mappings = {
     desc = "Git Diff",
     nowait = true,
     remap = false
-  }
+  },
+  -- {
+  --   "<leader>zz",
+  --   "<cmd>CodeCompanionActions<cr>",
+  --   mode = { "n", "v" },
+  --   noremap = true,
+  --   silent = true,
+  --   desc = "CodeCompanion actions",
+  -- },
+  -- {
+  --   "<leader>za",
+  --   "<cmd>CodeCompanionChat Toggle<cr>",
+  --   mode = { "n", "v" },
+  --   noremap = true,
+  --   silent = true,
+  --   desc = "CodeCompanion chat",
+  -- },
+  -- {
+  --   "<leader>zd",
+  --   "<cmd>CodeCompanionChat Add<cr>",
+  --   mode = "v",
+  --   noremap = true,
+  --   silent = true,
+  --   desc = "CodeCompanion add to chat",
+  -- },
 }
 
 return {
