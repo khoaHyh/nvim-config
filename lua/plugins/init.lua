@@ -17,6 +17,7 @@ return {
 	-- colorschemes END --
 	"nvim-tree/nvim-web-devicons",
 	"nvim-telescope/telescope-media-files.nvim",
+	"nvim-telescope/telescope-ui-select.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	{
 		"hrsh7th/nvim-cmp",
@@ -50,11 +51,15 @@ return {
 	"kevinhwang91/nvim-bqf",
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		},
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
-		opts = {},
+		opts = {
+			file_types = { "markdown", "copilot-chat" },
+		},
+		ft = { "markdown", "copilot-chat" },
 	},
 	"github/copilot.vim",
 	{
@@ -66,8 +71,12 @@ return {
 			},
 			build = "make tiktoken", -- Only on MacOS or Linux
 			opts = {
+				model = "claude-3.7-sonnet",
+				context = {
+					"models",
+				},
 				question_header = "## @khoaHyh",
-				answer_header = "## Copilot ",
+				answer_header = "## Copilot Response",
 				error_header = "## Error ",
 			},
 		},
