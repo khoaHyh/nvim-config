@@ -42,13 +42,6 @@ return {
 		lspconfig.htmx.setup({})
 		lspconfig.gopls.setup({})
 		lspconfig.ts_ls.setup({
-			-- override the default `cmd` so it picks workspace TS
-			cmd = {
-				"typescript-language-server",
-				"--stdio",
-				"--tsserver-path",
-				vim.fn.expand("./node_modules/typescript/lib/tsserver.js"),
-			},
 			-- need this to prevent denols and ts_ls both attached to the same buffer
 			root_dir = lspconfig.util.root_pattern("package.json"),
 			single_file_support = false,
