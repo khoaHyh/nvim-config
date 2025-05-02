@@ -42,6 +42,13 @@ return {
 		lspconfig.htmx.setup({})
 		lspconfig.gopls.setup({})
 		lspconfig.ts_ls.setup({
+			-- override the default `cmd` so it picks workspace TS
+			cmd = {
+				"typescript-language-server",
+				"--stdio",
+				"--tsserver-path",
+				vim.fn.expand("./node_modules/typescript/lib/tsserver.js"),
+			},
 			-- need this to prevent denols and ts_ls both attached to the same buffer
 			root_dir = lspconfig.util.root_pattern("package.json"),
 			single_file_support = false,
@@ -129,11 +136,6 @@ return {
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
 				vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-
-				-- Don't need these for now
-				-- vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
-				-- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
-				-- vim.keymap.set("n", "<space>wd", builtin.lsp_document_symbols, { buffer = 0 })
 
 				local filetype = vim.bo[bufnr].filetype
 				if disable_semantic_tokens[filetype] then
