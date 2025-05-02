@@ -17,6 +17,7 @@ return {
 	-- colorschemes END --
 	"nvim-tree/nvim-web-devicons",
 	"nvim-telescope/telescope-media-files.nvim",
+	"nvim-telescope/telescope-ui-select.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	{
 		"hrsh7th/nvim-cmp",

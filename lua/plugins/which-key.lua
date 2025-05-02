@@ -104,7 +104,7 @@ local mappings = {
 	{
 		"<leader>m",
 		"<cmd>RenderMarkdown toggle<cr>",
-		desc = "Git Diff",
+		desc = "Toggle Render Markdown",
 		nowait = true,
 		remap = false,
 	},
