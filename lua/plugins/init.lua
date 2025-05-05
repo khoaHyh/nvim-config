@@ -57,4 +57,5 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
+	"sindrets/diffview.nvim",
 }
