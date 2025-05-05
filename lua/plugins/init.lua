@@ -95,4 +95,5 @@ return {
 			require("mcphub").setup()
 		end,
 	},
+	"sindrets/diffview.nvim",
 }
