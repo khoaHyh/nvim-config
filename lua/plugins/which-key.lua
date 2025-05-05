@@ -118,7 +118,7 @@ local mappings = {
 	{
 		"<leader>dc",
 		"<cmd>DiffviewClose<cr>",
-		desc = "Open Diffview",
+		desc = "Close Diffview",
 		nowait = true,
 		remap = false,
 	},
