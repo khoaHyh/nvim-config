@@ -129,6 +129,12 @@ return {
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
 				vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+				vim.keymap.set(
+					"n",
+					"<leader>D",
+					vim.diagnostic.open_float,
+					{ buffer = 0, desc = "Show diagnostic float" }
+				)
 
 				local filetype = vim.bo[bufnr].filetype
 				if disable_semantic_tokens[filetype] then
