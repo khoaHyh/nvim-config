@@ -152,5 +152,6 @@ return {
 		telescope.load_extension("fzf")
 		-- For other modules to use
 		telescope.load_extension("ui-select")
+		telescope.load_extension("harpoon")
 	end,
 }
