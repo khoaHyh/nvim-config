@@ -74,14 +74,10 @@ return {
 					-- Using Ruff's import organizers
 					disableOrganizeImports = true,
 				},
-				python = {
+				basedpyright = {
 					analysis = {
-						inlayHints = {
-							variableTypes = true,
-							functionReturnTypes = true,
-						},
-						ignore = { "*" },
-						typeCheckingMode = "off",
+						-- ignore = { "*" },
+						typeCheckingMode = "basic",
 					},
 				},
 			},
@@ -89,7 +85,7 @@ return {
 		lspconfig.ruff.setup({
 			init_option = {
 				settings = {
-					loglevel = "error",
+					loglevel = "debug",
 				},
 			},
 		})
