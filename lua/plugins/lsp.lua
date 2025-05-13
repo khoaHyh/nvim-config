@@ -83,7 +83,7 @@ return {
 			},
 		})
 		lspconfig.ruff.setup({
-			init_option = {
+			init_options = {
 				settings = {
 					loglevel = "debug",
 				},
