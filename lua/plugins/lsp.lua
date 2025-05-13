@@ -29,7 +29,7 @@ return {
 				"kotlin_language_server",
 				"lua_ls",
 				"marksman",
-				"pyright",
+				"basedpyright",
 				"ruff",
 				"yamlls",
 			},
@@ -39,7 +39,9 @@ return {
 		mason.setup()
 
 		lspconfig.clangd.setup({})
-		lspconfig.htmx.setup({})
+		lspconfig.htmx.setup({
+			filetypes = { "html" },
+		})
 		lspconfig.gopls.setup({})
 		lspconfig.ts_ls.setup({
 			-- need this to prevent denols and ts_ls both attached to the same buffer
@@ -65,30 +67,25 @@ return {
 				},
 			},
 		})
-		lspconfig.marksman.setup({})
-		-- NTS: you need node running in the current context in order for pyright to work. Maybe something to fix with Mason?
-		lspconfig.pyright.setup({
+		lspconfig.marksman.setup({ filetypes = { "markdown" } })
+		lspconfig.basedpyright.setup({
 			settings = {
 				pyright = {
 					-- Using Ruff's import organizers
 					disableOrganizeImports = true,
 				},
-				python = {
+				basedpyright = {
 					analysis = {
-						inlayHints = {
-							variableTypes = true,
-							functionReturnTypes = true,
-						},
-						ignore = { "*" },
-						typeCheckingMode = "off",
+						-- ignore = { "*" },
+						typeCheckingMode = "basic",
 					},
 				},
 			},
 		})
 		lspconfig.ruff.setup({
-			init_option = {
+			init_options = {
 				settings = {
-					loglevel = "error",
+					loglevel = "debug",
 				},
 			},
 		})
@@ -129,12 +126,6 @@ return {
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
 				vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-				vim.keymap.set(
-					"n",
-					"<leader>D",
-					vim.diagnostic.open_float,
-					{ buffer = 0, desc = "Show diagnostic float" }
-				)
 
 				local filetype = vim.bo[bufnr].filetype
 				if disable_semantic_tokens[filetype] then
@@ -142,7 +133,7 @@ return {
 				end
 
 				if client.name == "ruff" then
-					-- Disable hover in favor of Pyright
+					-- Disable hover in favor of basedpyright
 					client.server_capabilities.hoverProvider = false
 				end
 			end,

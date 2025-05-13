@@ -72,13 +72,6 @@ local mappings = {
 		remap = false,
 	},
 	{
-		"<leader>t",
-		"<cmd>lua vim.diagnostic.open_float()<cr>",
-		desc = "Open Diagnostics",
-		nowait = true,
-		remap = false,
-	},
-	{
 		"<leader>e",
 		":NvimTreeToggle<CR>",
 		icon = "🌳",
@@ -87,6 +80,13 @@ local mappings = {
 		remap = false,
 	},
 	{ "<leader>p", yank_nvim_tree_rel_path, icon = "📝", desc = "Yank Relative Path", nowait = true, remap = false },
+	{
+		"<leader>D",
+		"<cmd>lua vim.diagnostic.open_float()<cr>",
+		desc = "Open Diagnostics",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<leader>t",
 		"<cmd>lua vim.diagnostic.setloclist()<cr>",
