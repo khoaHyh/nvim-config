@@ -51,10 +51,49 @@ return {
 	"kevinhwang91/nvim-bqf",
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		},
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
-		opts = {},
+		opts = {
+			file_types = { "markdown", "copilot-chat" },
+		},
+		ft = { "markdown", "copilot-chat" },
+	},
+	"github/copilot.vim",
+	{
+		{
+			"CopilotC-Nvim/CopilotChat.nvim",
+			dependencies = {
+				{ "github/copilot.vim" },
+				{ "nvim-lua/plenary.nvim", branch = "master" },
+			},
+			build = "make tiktoken", -- Only on MacOS or Linux
+			opts = {
+				model = "claude-3.7-sonnet",
+				context = {
+					"models",
+				},
+				question_header = "## @khoaHyh",
+				answer_header = "## Copilot Response",
+				error_header = "## Error ",
+			},
+		},
+	},
+	{
+		"ravitemer/mcphub.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
+		},
+		-- uncomment the following line to load hub lazily
+		--cmd = "MCPHub",  -- lazy load
+		build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+		-- uncomment this if you don't want mcp-hub to be available globally or can't use -g
+		-- build = "bundled_build.lua",  -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
+		config = function()
+			require("mcphub").setup()
+		end,
 	},
 	{
 		"sindrets/diffview.nvim",
