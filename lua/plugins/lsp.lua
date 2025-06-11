@@ -31,24 +31,32 @@ return {
 				"marksman",
 				"basedpyright",
 				"ruff",
+				"stylua",
+				"prettierd",
 				"yamlls",
 			},
 			handlers = { default_setup },
 			automatic_enable = {
 				exclude = {
+					"basedpyright",
 					"denols",
+					"eslint",
+					"html",
 					"htmx",
+					"lua_ls",
+					"marksman",
+					"ruff",
+					"tailwindcss",
+					"ts_ls",
 				},
 			},
 		})
 
 		mason.setup()
 
-		lspconfig.clangd.setup({})
 		lspconfig.htmx.setup({
 			filetypes = { "html" },
 		})
-		lspconfig.gopls.setup({})
 		lspconfig.ts_ls.setup({
 			-- need this to prevent denols and ts_ls both attached to the same buffer
 			root_dir = lspconfig.util.root_pattern("package.json"),
@@ -95,9 +103,6 @@ return {
 				},
 			},
 		})
-		lspconfig.yamlls.setup({})
-		lspconfig.kotlin_language_server.setup({})
-		lspconfig.templ.setup({})
 		lspconfig.html.setup({
 			filetypes = { "html", "templ" },
 		})
@@ -127,7 +132,7 @@ return {
 				local builtin = require("telescope.builtin")
 
 				vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-				vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
 				vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
 				vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
