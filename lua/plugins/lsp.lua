@@ -31,8 +31,6 @@ return {
 				"marksman",
 				"basedpyright",
 				"ruff",
-				"stylua",
-				"prettierd",
 				"yamlls",
 			},
 			handlers = { default_setup },
