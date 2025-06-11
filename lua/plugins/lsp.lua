@@ -34,6 +34,12 @@ return {
 				"yamlls",
 			},
 			handlers = { default_setup },
+			automatic_enable = {
+				exclude = {
+					"denols",
+					"htmx",
+				},
+			},
 		})
 
 		mason.setup()
