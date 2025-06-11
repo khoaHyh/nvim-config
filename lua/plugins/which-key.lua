@@ -122,6 +122,27 @@ local mappings = {
 		nowait = true,
 		remap = false,
 	},
+	{
+		"<leader>cc",
+		"<cmd>CopilotChatToggle<cr>",
+		desc = "Toggle Copilot chat window",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<leader>cm",
+		"<cmd>CopilotChatModels<cr>",
+		desc = "View/select available Copilot models",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<leader>ca",
+		"<cmd>CopilotChatAgents<cr>",
+		desc = "View/select available Copilot agents",
+		nowait = true,
+		remap = false,
+	},
 }
 
 return {
