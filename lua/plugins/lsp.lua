@@ -46,6 +46,7 @@ return {
 					"ruff",
 					"tailwindcss",
 					"ts_ls",
+					"yamlls",
 				},
 			},
 		})
@@ -113,6 +114,9 @@ return {
 					},
 				},
 			},
+		})
+		lspconfig.yamlls.setup({
+			filetypes = { "yaml", "yml" },
 		})
 
 		local disable_semantic_tokens = {
