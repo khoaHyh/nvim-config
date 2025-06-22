@@ -42,8 +42,76 @@ return {
 					"--glob=!**/yarn.lock",
 					"--glob=!**/package-lock.json",
 					"--glob=!**/node_modules/*",
+					-- Python virtual environment patterns
+					"--glob=!**/.venv/*", -- Python virtual environment
+					"--glob=!**/.env/*", -- Alternative venv name
+					"--glob=!**/venv/*", -- Another common venv name
+					"--glob=!**/__pycache__/*", -- Python cache
+					"--glob=!**/*.pyc", -- Python compiled files
+					"--glob=!**/.pytest_cache/*", -- Pytest cache
+					"--glob=!**/.coverage", -- Coverage files
+					"--glob=!**/.tox/*", -- Tox directories
+					"--glob=!**/.mypy_cache/*", -- MyPy cache
+					"--glob=!**/uv.lock", -- UV lock file
+					-- System files
+					"--glob=!**/.DS_Store", -- macOS files
+					"--glob=!**/Thumbs.db", -- Windows files
+					"--glob=!**/.ipynb_checkpoints/*", -- Jupyter checkpoints
 				},
 
+				file_ignore_patterns = {
+					-- Version control
+					"%.git/",
+
+					-- Python
+					"%.venv/",
+					"venv/",
+					"%.env/",
+					"__pycache__/",
+					"%.pyc$",
+					"%.pyo$",
+					"%.pyd$",
+					"%.pytest_cache/",
+					"%.coverage",
+					"%.tox/",
+					"%.mypy_cache/",
+
+					-- Node.js
+					"node_modules/",
+					"%.npm/",
+					"yarn%.lock",
+					"package%-lock%.json",
+
+					-- Build artifacts
+					"build/",
+					"dist/",
+					"target/",
+					"%.o$",
+					"%.so$",
+					"%.dll$",
+					"%.exe$",
+
+					-- IDE/Editor files
+					"%.idea/",
+					"%.vscode/",
+					"%.swp$",
+					"%.swo$",
+					"%.tmp$",
+
+					-- OS files
+					"%.DS_Store",
+					"Thumbs%.db",
+
+					-- UV/Rust package manager
+					"uv%.lock",
+
+					-- Jupyter
+					"%.ipynb_checkpoints/",
+
+					-- Common log files
+					"%.log$",
+					"%.out$",
+				},
 				mappings = {
 					i = {
 						["<C-n>"] = actions.cycle_history_next,
@@ -124,8 +192,42 @@ return {
 						"--glob=!**/dist/*",
 						"--glob=!**/yarn.lock",
 						"--glob=!**/package-lock.json",
-						"--glob=!**/node_modules",
+						"--glob=!**/node_modules/*",
+						"--glob=!**/target/*", -- Rust/Java build dir
+						"--glob=!**/*.pyo", -- Python optimized
+						"--glob=!**/*.pyd", -- Python extension
+						"--glob=!**/.pytest_cache/*",
+						"--glob=!**/.coverage",
+						"--glob=!**/.tox/*",
+						"--glob=!**/.mypy_cache/*",
+						"--glob=!**/uv.lock",
+						"--glob=!**/.DS_Store",
+						"--glob=!**/Thumbs.db",
+						"--glob=!**/.ipynb_checkpoints/*",
+						"--glob=!**/*.log",
+						"--glob=!**/*.tmp",
+						"--glob=!**/*.swp",
+						"--glob=!**/*.swo",
 					},
+				},
+				file_ignore_patterns = {
+					"%.git/",
+					"%.venv/",
+					"venv/",
+					"%.env/",
+					"__pycache__/",
+					"%.pyc$",
+					"%.pyo$",
+					"%.pyd$",
+					"node_modules/",
+					"%.npm/",
+					"build/",
+					"dist/",
+					"target/",
+					"%.idea/",
+					"%.vscode/",
+					"%.ipynb_checkpoints/",
+					"uv%.lock",
 				},
 				grep_string = {
 					additional_args = { "--hidden" },
@@ -133,6 +235,18 @@ return {
 				live_grep = {
 					theme = "ivy",
 					additional_args = { "--hidden" },
+					file_ignore_patterns = {
+						"%.venv/",
+						"venv/",
+						"%.env/",
+						"__pycache__/",
+						"%.pyc$",
+						"node_modules/",
+						"%.git/",
+						"build/",
+						"dist/",
+						"%.ipynb_checkpoints/",
+					},
 				},
 				lsp_references = {
 					theme = "ivy",
