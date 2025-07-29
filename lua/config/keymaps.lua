@@ -22,3 +22,10 @@ map("n", "<C-Right>", ":vertical resize -2<CR>", opts)
 -- Navigate buffers (tabs at the top)
 map("n", "<S-l>", ":bnext<CR>", opts)
 map("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Copilot
+vim.keymap.set("i", "<M-]>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true

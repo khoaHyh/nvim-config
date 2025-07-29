@@ -23,13 +23,6 @@ cmp.setup({
 		["<C-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
 		-- Ctrl + space triggers completion menu
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			vim.api.nvim_feedkeys(
-				vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-				"n",
-				true
-			)
-		end),
 	},
 	formatting = {
 		format = lspkind.cmp_format({
