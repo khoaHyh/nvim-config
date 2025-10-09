@@ -57,27 +57,57 @@ return {
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {
-			file_types = { "markdown", "copilot-chat" },
+			file_types = { "markdown", "codecompanion" },
 		},
-		ft = { "markdown", "copilot-chat" },
+		ft = { "markdown", "codecompanion" },
 	},
 	"github/copilot.vim",
 	{
-		{
-			"CopilotC-Nvim/CopilotChat.nvim",
-			dependencies = {
-				{ "github/copilot.vim" },
-				{ "nvim-lua/plenary.nvim", branch = "master" },
-			},
-			build = "make tiktoken", -- Only on MacOS or Linux
-			opts = {
-				model = "claude-3.7-sonnet",
-				context = {
-					"models",
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"github/copilot.vim",
+		},
+		opts = {
+			strategies = {
+				chat = {
+					adapter = "copilot",
+					model = "claude-3.7-sonnet",
 				},
-				question_header = "## @khoaHyh",
-				answer_header = "## Copilot Response",
-				error_header = "## Error ",
+				inline = {
+					adapter = "copilot",
+					model = "claude-3.7-sonnet",
+				},
+				cmd = {
+					adapter = "copilot",
+					model = "claude-3.7-sonnet",
+				},
+			},
+			adapters = {
+				http = {
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
+							schema = {
+								model = {
+									default = "claude-3.7-sonnet",
+								},
+							},
+						})
+					end,
+				},
+			},
+			display = {
+				chat = {
+					post_open_hook = function()
+						vim.wo.winfixbuf = true
+						vim.bo.buflisted = false
+						vim.bo.buftype = "nofile"
+						vim.bo.swapfile = false
+						vim.bo.bufhidden = "wipe"
+						vim.notify("post_open_hook triggered!", vim.log.levels.INFO)
+					end,
+				},
 			},
 		},
 	},
