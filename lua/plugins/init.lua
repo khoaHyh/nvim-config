@@ -73,15 +73,15 @@ return {
 			strategies = {
 				chat = {
 					adapter = "copilot",
-					model = "claude-3.7-sonnet",
+					model = "claude-sonnet-4.5",
 				},
 				inline = {
 					adapter = "copilot",
-					model = "claude-3.7-sonnet",
+					model = "claude-sonnet-4.5",
 				},
 				cmd = {
 					adapter = "copilot",
-					model = "claude-3.7-sonnet",
+					model = "claude-sonnet-4.5",
 				},
 			},
 			adapters = {
@@ -90,7 +90,7 @@ return {
 						return require("codecompanion.adapters").extend("copilot", {
 							schema = {
 								model = {
-									default = "claude-3.7-sonnet",
+									default = "claude-sonnet-4.5",
 								},
 							},
 						})
