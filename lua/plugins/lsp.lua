@@ -8,14 +8,107 @@ return {
 	config = function()
 		local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		local default_setup = function(server)
-			require("lspconfig")[server].setup({
-				capabilities = lsp_capabilities,
-			})
-		end
+		-- Set default capabilities for all LSP servers
+		vim.lsp.config("*", {
+			capabilities = lsp_capabilities,
+		})
 
-		local lspconfig = require("lspconfig")
-		local mason = require("mason")
+		-- Configure individual servers using vim.lsp.config
+		vim.lsp.config("htmx", {
+			filetypes = { "html" },
+		})
+
+		vim.lsp.config("ts_ls", {
+			root_markers = { "package.json" },
+			single_file_support = false,
+		})
+
+		vim.lsp.config("eslint", {
+			root_markers = { "queries", ".git" },
+		})
+
+		vim.lsp.config("denols", {
+			root_markers = { "deno.json", "deno.jsonc" },
+		})
+
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					workspace = {
+						library = vim.api.nvim_get_runtime_file("", true),
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("marksman", {
+			filetypes = { "markdown" },
+		})
+
+		vim.lsp.config("basedpyright", {
+			settings = {
+				pyright = {
+					disableOrganizeImports = true,
+				},
+				basedpyright = {
+					analysis = {
+						typeCheckingMode = "basic",
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("ruff", {
+			init_options = {
+				settings = {
+					loglevel = "debug",
+				},
+			},
+		})
+
+		vim.lsp.config("html", {
+			filetypes = { "html", "templ" },
+		})
+
+		vim.lsp.config("tailwindcss", {
+			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+			settings = {
+				tailwindCSS = {
+					includeLanguages = {
+						templ = "html",
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("yamlls", {
+			filetypes = { "yaml", "yml" },
+		})
+
+		-- Enable all configured servers
+		vim.lsp.enable({
+			"htmx",
+			"clangd",
+			"denols",
+			"gopls",
+			"templ",
+			"ts_ls",
+			"tailwindcss",
+			"eslint",
+			"kotlin_language_server",
+			"lua_ls",
+			"marksman",
+			"basedpyright",
+			"ruff",
+			"yamlls",
+			"html",
+		})
+
+		-- Setup mason
+		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"htmx",
@@ -33,90 +126,6 @@ return {
 				"ruff",
 				"yamlls",
 			},
-			handlers = { default_setup },
-			automatic_enable = {
-				exclude = {
-					"basedpyright",
-					"denols",
-					"eslint",
-					"html",
-					"htmx",
-					"lua_ls",
-					"marksman",
-					"ruff",
-					"tailwindcss",
-					"ts_ls",
-					"yamlls",
-				},
-			},
-		})
-
-		mason.setup()
-
-		lspconfig.htmx.setup({
-			filetypes = { "html" },
-		})
-		lspconfig.ts_ls.setup({
-			-- need this to prevent denols and ts_ls both attached to the same buffer
-			root_dir = lspconfig.util.root_pattern("package.json"),
-			single_file_support = false,
-		})
-		lspconfig.eslint.setup({
-			-- need this to prevent denols and ts_ls both attached to the same buffer
-			root_dir = lspconfig.util.root_pattern("queries", ".git"),
-		})
-		lspconfig.denols.setup({
-			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-		})
-		lspconfig.lua_ls.setup({
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" }, -- Declare `vim` as a global variable
-					},
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime files
-					},
-				},
-			},
-		})
-		lspconfig.marksman.setup({ filetypes = { "markdown" } })
-		lspconfig.basedpyright.setup({
-			settings = {
-				pyright = {
-					-- Using Ruff's import organizers
-					disableOrganizeImports = true,
-				},
-				basedpyright = {
-					analysis = {
-						-- ignore = { "*" },
-						typeCheckingMode = "basic",
-					},
-				},
-			},
-		})
-		lspconfig.ruff.setup({
-			init_options = {
-				settings = {
-					loglevel = "debug",
-				},
-			},
-		})
-		lspconfig.html.setup({
-			filetypes = { "html", "templ" },
-		})
-		lspconfig.tailwindcss.setup({
-			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-			settings = {
-				tailwindCSS = {
-					includeLanguages = {
-						templ = "html",
-					},
-				},
-			},
-		})
-		lspconfig.yamlls.setup({
-			filetypes = { "yaml", "yml" },
 		})
 
 		local disable_semantic_tokens = {
