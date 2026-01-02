@@ -1,18 +1,23 @@
 return {
 	"mfussenegger/nvim-lint",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-		local status_ok, linter = pcall(require, "lint")
-		if not status_ok then
-			return
-		end
+		local lint = require("lint")
 
-		linter.linters_by_ft = {
+		lint.linters_by_ft = {
 			markdown = { "vale" },
 			c = { "cpplint" },
 			go = { "golangci-lint" },
-			ts = { "eslint_d" },
-			js = { "eslint_d" },
+			typescript = { "eslint_d" },
+			javascript = { "eslint_d" },
 			lua = { "luacheck" },
 		}
+
+		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			group = vim.api.nvim_create_augroup("lint", { clear = true }),
+			callback = function()
+				lint.try_lint()
+			end,
+		})
 	end,
 }

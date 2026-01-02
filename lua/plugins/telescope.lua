@@ -8,14 +8,9 @@ return {
 		},
 	},
 	config = function()
-		local status_ok, telescope = pcall(require, "telescope")
-		if not status_ok then
-			return
-		end
-
-		telescope.load_extension("media_files")
-
+		local telescope = require("telescope")
 		local actions = require("telescope.actions")
+
 		telescope.setup({
 			defaults = {
 				prompt_prefix = " ",
@@ -262,9 +257,9 @@ return {
 				},
 			},
 		})
-		-- This will load fzy_native and have it override the default file sorter
+
 		telescope.load_extension("fzf")
-		-- For other modules to use
+		telescope.load_extension("media_files")
 		telescope.load_extension("ui-select")
 		telescope.load_extension("harpoon")
 	end,
