@@ -11,6 +11,8 @@ return {
 			typescript = { "eslint_d" },
 			javascript = { "eslint_d" },
 			lua = { "luacheck" },
+			python = { "ruff" },
+			sh = { "shellcheck" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
