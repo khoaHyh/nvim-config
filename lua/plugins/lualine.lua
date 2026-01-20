@@ -62,41 +62,41 @@ local function idkFace()
 end
 
 return {
-    "nvim-lualine/lualine.nvim",
-    config = function ()
-        local status_ok, lualine = pcall(require, "lualine")
-        if not status_ok then
-            return
-        end
+	"nvim-lualine/lualine.nvim",
+	config = function()
+		local status_ok, lualine = pcall(require, "lualine")
+		if not status_ok then
+			return
+		end
 
-        lualine.setup({
-            options = {
-                icons_enabled = true,
-                theme = "gruvbox-material",
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
-                disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
-                always_divide_middle = true,
-            },
-            sections = {
-                lualine_a = { branch, diagnostics },
-                lualine_b = { mode },
-                lualine_c = {},
-                -- lualine_x = { "encoding", "fileformat", "filetype" },
-                lualine_x = { diff, spaces, "encoding", filetype },
-                lualine_y = { location },
-                lualine_z = { progress, { idkFace } },
-            },
-            inactive_sections = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_c = { "filename" },
-                lualine_x = { "location" },
-                lualine_y = {},
-                lualine_z = {},
-            },
-            tabline = {},
-            extensions = {},
-        })
-    end
+		lualine.setup({
+			options = {
+				icons_enabled = true,
+				theme = "gruvbox-material",
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
+				always_divide_middle = true,
+			},
+			sections = {
+				lualine_a = { branch, diagnostics },
+				lualine_b = { mode },
+				lualine_c = {},
+				-- lualine_x = { "encoding", "fileformat", "filetype" },
+				lualine_x = { { require("opencode").statusline }, diff, spaces, "encoding", filetype },
+				lualine_y = { location },
+				lualine_z = { progress, { idkFace } },
+			},
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = { "filename" },
+				lualine_x = { "location" },
+				lualine_y = {},
+				lualine_z = {},
+			},
+			tabline = {},
+			extensions = {},
+		})
+	end,
 }
