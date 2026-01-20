@@ -47,80 +47,101 @@ end
 local multi_grep = require("config.telescope.multigrep")
 
 local mappings = {
+	-- Telescope, diagnostics, git, and diff (normal mode)
 	{
-		"<leader>f",
-		"<cmd>Telescope find_files<cr>",
-		icon = "📂",
-		desc = "Find Files",
-		nowait = true,
-		remap = false,
+		mode = "n",
+		{ "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", icon = "📂", nowait = true },
+		{ "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Live Grep", icon = "🔤", nowait = true },
+		{ "<leader>M", multi_grep.live_multigrep, desc = "Multi Grep", icon = "🔎", nowait = true },
+		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree", icon = "🌳", nowait = true },
+		{ "<leader>p", yank_nvim_tree_rel_path, desc = "Yank Relative Path", icon = "📝", nowait = true },
+		{ "<leader>D", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Open Diagnostics", nowait = true },
+		{ "<leader>t", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Diagnostics for current buffer", nowait = true },
+		{ "<leader>gi", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview hunk inline", nowait = true },
+		{ "<leader>m", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Render Markdown", nowait = true },
+		{ "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview", nowait = true },
+		{ "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview", nowait = true },
 	},
+
+	-- Opencode (leader + o)
 	{
-		"<leader>F",
-		"<cmd>Telescope live_grep<cr>",
-		icon = "🔤",
-		desc = "Live Grep",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>M",
-		multi_grep.live_multigrep,
-		icon = "🔎",
-		desc = "Multi Grep",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>e",
-		":NvimTreeToggle<CR>",
-		icon = "🌳",
-		desc = "Toggle NvimTree",
-		nowait = true,
-		remap = false,
-	},
-	{ "<leader>p", yank_nvim_tree_rel_path, icon = "📝", desc = "Yank Relative Path", nowait = true, remap = false },
-	{
-		"<leader>D",
-		"<cmd>lua vim.diagnostic.open_float()<cr>",
-		desc = "Open Diagnostics",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>t",
-		"<cmd>lua vim.diagnostic.setloclist()<cr>",
-		desc = "Diagnostics for current buffer",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>gi",
-		"<cmd>Gitsigns preview_hunk_inline<cr>",
-		desc = "Preview hunk inline",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>m",
-		"<cmd>RenderMarkdown toggle<cr>",
-		desc = "Toggle Render Markdown",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>do",
-		"<cmd>DiffviewOpen<cr>",
-		desc = "Open Diffview",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<leader>dc",
-		"<cmd>DiffviewClose<cr>",
-		desc = "Close Diffview",
-		nowait = true,
-		remap = false,
+		mode = { "n", "x", "t" },
+		{ "<leader>o", group = "Opencode" },
+		{
+			"<leader>oa",
+			function()
+				require("opencode").ask("@this: ", { submit = true })
+			end,
+			desc = "Ask (submit)",
+			mode = { "n", "x" },
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>ox",
+			function()
+				require("opencode").select()
+			end,
+			desc = "Execute selection",
+			mode = { "n", "x" },
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>ot",
+			function()
+				require("opencode").toggle()
+			end,
+			desc = "Toggle opencode",
+			mode = { "n", "t" },
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>og",
+			function()
+				vim.notify("Use `go`/`goo` to add ranges to opencode.", vim.log.levels.INFO)
+			end,
+			desc = "Operator (`go`/`goo`)",
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>os",
+			function()
+				require("opencode").command("session.half.page.up")
+			end,
+			desc = "Scroll up (<S-C-u>)",
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>od",
+			function()
+				require("opencode").command("session.half.page.down")
+			end,
+			desc = "Scroll down (<S-C-d>)",
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>o+",
+			function()
+				vim.notify("Use `+` to increment (alias for <C-a>).", vim.log.levels.INFO)
+			end,
+			desc = "Increment alias (`+`)",
+			nowait = true,
+			silent = true,
+		},
+		{
+			"<leader>o-",
+			function()
+				vim.notify("Use `-` to decrement (alias for <C-x>).", vim.log.levels.INFO)
+			end,
+			desc = "Decrement alias (`-`)",
+			nowait = true,
+			silent = true,
+		},
 	},
 }
 
