@@ -6,13 +6,19 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		variant = "auto",
-		dark_variant = "moon",
-		styles = {
-			bold = true,
-			italic = true,
-			transparency = false,
+		opts = {
+			variant = "auto",
+			dark_variant = "moon",
+			styles = {
+				bold = true,
+				italic = true,
+				transparency = false,
+			},
 		},
+		config = function(_, opts)
+			require("rose-pine").setup(opts)
+			vim.cmd("colorscheme rose-pine")
+		end,
 	},
 	-- colorschemes END --
 	"nvim-tree/nvim-web-devicons",

@@ -37,6 +37,3 @@ end
 
 require("config.keymaps") -- map b4 loading packages so we can use <Leader>
 require("lazy-config")
-
--- set colorscheme after plugins are loaded
-vim.cmd([[ colorscheme rose-pine ]])
