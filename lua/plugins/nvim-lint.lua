@@ -7,7 +7,7 @@ return {
 		lint.linters_by_ft = {
 			markdown = { "vale" },
 			c = { "cpplint" },
-			go = { "golangci-lint" },
+			go = { "golangcilint" },
 			typescript = { "eslint_d" },
 			javascript = { "eslint_d" },
 			lua = { "luacheck" },
