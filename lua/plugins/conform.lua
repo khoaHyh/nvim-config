@@ -4,10 +4,10 @@ return {
   cmd = { "ConformInfo" },
   opts = {
     formatters_by_ft = {
-      typescript = { "prettierd", stop_after_first = true },
-      javascript = { "prettierd", stop_after_first = true },
-      typescriptreact = { "prettierd", stop_after_first = true },
-      javascriptreact = { "prettierd", stop_after_first = true },
+      typescript = { "oxfmt", "prettier", stop_after_first = true },
+      javascript = { "oxfmt", "prettier", stop_after_first = true },
+      typescriptreact = { "oxfmt", "prettier", stop_after_first = true },
+      javascriptreact = { "oxfmt", "prettier", stop_after_first = true },
       markdown = { "prettierd", stop_after_first = true },
       json = { "prettierd", stop_after_first = true },
       css = { "prettierd", stop_after_first = true },
