@@ -50,8 +50,8 @@ local mappings = {
 	-- Telescope, diagnostics, git, and diff (normal mode)
 	{
 		mode = "n",
-		{ "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", icon = "📂", nowait = true },
-		{ "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Live Grep", icon = "🔤", nowait = true },
+		{ "<leader>f", function() require("fff").find_files() end, desc = "Find files (fff)", icon = "📂", nowait = true },
+		{ "<leader>F", function() require("fff").live_grep() end, desc = "Live grep (fff)", icon = "🔤", nowait = true },
 		{ "<leader>M", multi_grep.live_multigrep, desc = "Multi Grep", icon = "🔎", nowait = true },
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree", icon = "🌳", nowait = true },
 		{ "<leader>p", yank_nvim_tree_rel_path, desc = "Yank Relative Path", icon = "📝", nowait = true },
