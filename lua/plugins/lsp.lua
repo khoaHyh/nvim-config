@@ -18,6 +18,8 @@ return {
 			filetypes = { "html" },
 		})
 
+		vim.lsp.config("tsgo", {})
+
 		vim.lsp.config("ts_ls", {
 			root_markers = { "package.json" },
 			single_file_support = false,
@@ -25,10 +27,6 @@ return {
 
 		vim.lsp.config("eslint", {
 			root_markers = { "queries", ".git" },
-		})
-
-		vim.lsp.config("denols", {
-			root_markers = { "deno.json", "deno.jsonc" },
 		})
 
 		vim.lsp.config("lua_ls", {
@@ -88,14 +86,19 @@ return {
 			filetypes = { "yaml", "yml" },
 		})
 
+		local prefer_tsgo = vim.g.prefer_tsgo == true
+		local typescript_server = "ts_ls"
+		if prefer_tsgo and vim.fn.executable("tsgo") == 1 then
+			typescript_server = "tsgo"
+		end
+
 		-- Enable all configured servers
 		vim.lsp.enable({
 			"htmx",
 			"clangd",
-			"denols",
 			"gopls",
 			"templ",
-			"ts_ls",
+			typescript_server,
 			"tailwindcss",
 			"eslint",
 			"kotlin_language_server",
@@ -110,13 +113,16 @@ return {
 		-- Setup mason
 		require("mason").setup()
 		require("mason-lspconfig").setup({
+			automatic_enable = {
+				exclude = { "ts_ls", "tsgo" },
+			},
 			ensure_installed = {
 				"htmx",
 				"clangd",
-				"denols",
 				"gopls",
 				"templ",
 				"ts_ls",
+				"tsgo",
 				"tailwindcss",
 				"eslint",
 				"kotlin_language_server",
@@ -127,6 +133,25 @@ return {
 				"yamlls",
 			},
 		})
+
+		local function ensure_mason_packages(packages)
+			if #vim.api.nvim_list_uis() == 0 then
+				return
+			end
+
+			local registry = require("mason-registry")
+
+			registry.refresh(function()
+				for _, package_name in ipairs(packages) do
+					local ok, pkg = pcall(registry.get_package, package_name)
+					if ok and not pkg:is_installed() then
+						pkg:install()
+					end
+				end
+			end)
+		end
+
+		ensure_mason_packages({ "oxlint", "oxfmt" })
 
 		local disable_semantic_tokens = {
 			lua = true,
